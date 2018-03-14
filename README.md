@@ -6,6 +6,11 @@ It`s a fork of [aiosocks](https://github.com/nibrag/aiosocks) with minor fixes f
 - Python >= 3.5.3
 - aiohttp >= 3.0
 
+## Installation
+```
+pip install aiosocksy
+```
+
 ## Usage
 
 ```python
