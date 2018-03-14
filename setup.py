@@ -29,10 +29,10 @@ setup(
     version=version,
     license='Apache 2',
     url='https://github.com/romis2012/aiosocksy',
-
-    description=('SOCKS proxy client for aiohttp 3.0+. '
-                 'See https://github.com/romis2012/aiosocksy '
-                 'for more information'),
+    description='SOCKS proxy client for aiohttp 3.0+',
+    long_description='SOCKS proxy client for aiohttp 3.0+. '
+                     'See https://github.com/romis2012/aiosocksy '
+                     'for more information',
     packages=['aiosocksy'],
     keywords='socks proxy aiohttp',
     install_requires=[
