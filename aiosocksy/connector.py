@@ -49,11 +49,12 @@ class ProxyConnector(aiohttp.TCPConnector):
 
         self._remote_resolve = remote_resolve
 
-    async def _create_proxy_connection(self, req, traces=None):
+    async def _create_proxy_connection(self, *args, **kwargs):
+        req = args[0]
         if req.proxy.scheme == 'http':
-            return await super()._create_proxy_connection(req, traces=traces)
+            return await super()._create_proxy_connection(*args, **kwargs)
         else:
-            return await self._create_socks_connection(req, traces=traces)
+            return await self._create_socks_connection(req=req)
 
     async def _wrap_create_socks_connection(self, *args, req, **kwargs):
         try:
@@ -68,14 +69,14 @@ class ProxyConnector(aiohttp.TCPConnector):
             raise aiohttp.ClientProxyConnectionError(
                 req.connection_key, exc) from exc
 
-    async def _create_socks_connection(self, req, traces=None):
+    async def _create_socks_connection(self, req):
         sslcontext = self._get_ssl_context(req)
         fingerprint = self._get_fingerprint(req)
 
         if not self._remote_resolve:
             try:
                 dst_hosts = list(await self._resolve_host(
-                    req.host, req.port, traces=traces))
+                    req.host, req.port))
                 dst = dst_hosts[0]['host'], dst_hosts[0]['port']
             except OSError as exc:
                 raise aiohttp.ClientConnectorError(
@@ -85,7 +86,7 @@ class ProxyConnector(aiohttp.TCPConnector):
 
         try:
             proxy_hosts = await self._resolve_host(
-                req.proxy.host, req.proxy.port, traces=traces)
+                req.proxy.host, req.proxy.port)
         except OSError as exc:
             raise aiohttp.ClientConnectorError(
                 req.connection_key, exc) from exc
