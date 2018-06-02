@@ -49,10 +49,13 @@ class ProxyConnector(aiohttp.TCPConnector):
 
         self._remote_resolve = remote_resolve
 
-    async def _create_proxy_connection(self, *args, **kwargs):
-        req = args[0]
+    async def _create_proxy_connection(self, req, *args, **kwargs):
+        """
+        args, kwargs can contain different elements (traces, timeout,...)
+        depending on aiohttp version
+        """
         if req.proxy.scheme == 'http':
-            return await super()._create_proxy_connection(*args, **kwargs)
+            return await super()._create_proxy_connection(req, *args, **kwargs)
         else:
             return await self._create_socks_connection(req=req)
 
