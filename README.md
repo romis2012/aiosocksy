@@ -1,4 +1,5 @@
 ## SOCKS proxy client for aiohttp 3.0+
+**DEPRECATED: please use new [aiohttp-socks](https://github.com/romis2012/aiohttp-socks) package**
 
 It`s a fork of [aiosocks](https://github.com/nibrag/aiosocks) with minor fixes for aiohttp 3.0+ compatibility
 
