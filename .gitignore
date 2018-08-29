@@ -39,3 +39,4 @@ virtualenv.py
 .install-deps
 .develop
 .idea/
+usage*.py
